@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace eShopSolution.Data.Migrations
 {
-    public partial class SeedData : Migration
+    public partial class SeedingData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,21 @@ namespace eShopSolution.Data.Migrations
                     { "HomeKeyword", "This is keyword of eShopSolution" },
                     { "HomeDescription", "This is description of eShopSolution" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "AppRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
+                values: new object[] { new Guid("93a51f7f-1c46-43a8-8daf-1e360ea6c870"), "fc11d78a-c9c7-4364-bd00-947b8dc4a849", "Administrator role", "admin", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "AppUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { new Guid("11300385-5ed3-40cc-afa5-83c44ccc262a"), new Guid("93a51f7f-1c46-43a8-8daf-1e360ea6c870") });
+
+            migrationBuilder.InsertData(
+                table: "AppUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Dob", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { new Guid("11300385-5ed3-40cc-afa5-83c44ccc262a"), 0, "d062d14a-4bcb-43f8-b0f1-15ca91a6f78d", new DateTime(1998, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "duongnguyenadhp@gmail.com", true, "Duong", "Nguyen", false, null, "duongnguyenadhp@gmail.com", "admin", "AQAAAAEAACcQAAAAEGFV79ogdwtPLj3y9r7vcxW5iM8DuxFw0ax46LxxADcNgoLOcbAHfBSzrJoL/Q+QzA==", null, false, "", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -38,7 +53,7 @@ namespace eShopSolution.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "DateCreated", "OriginalPrice", "Price" },
-                values: new object[] { 1, new DateTime(2020, 5, 12, 15, 22, 57, 228, DateTimeKind.Local).AddTicks(3683), 100000m, 200000m });
+                values: new object[] { 1, new DateTime(2020, 5, 12, 21, 13, 11, 326, DateTimeKind.Local).AddTicks(8), 100000m, 200000m });
 
             migrationBuilder.InsertData(
                 table: "CategoryTranslations",
@@ -82,6 +97,21 @@ namespace eShopSolution.Data.Migrations
                 table: "AppConfigs",
                 keyColumn: "Key",
                 keyValue: "HomeKeyword");
+
+            migrationBuilder.DeleteData(
+                table: "AppRoles",
+                keyColumn: "Id",
+                keyValue: new Guid("93a51f7f-1c46-43a8-8daf-1e360ea6c870"));
+
+            migrationBuilder.DeleteData(
+                table: "AppUserRoles",
+                keyColumns: new[] { "UserId", "RoleId" },
+                keyValues: new object[] { new Guid("11300385-5ed3-40cc-afa5-83c44ccc262a"), new Guid("93a51f7f-1c46-43a8-8daf-1e360ea6c870") });
+
+            migrationBuilder.DeleteData(
+                table: "AppUsers",
+                keyColumn: "Id",
+                keyValue: new Guid("11300385-5ed3-40cc-afa5-83c44ccc262a"));
 
             migrationBuilder.DeleteData(
                 table: "CategoryTranslations",

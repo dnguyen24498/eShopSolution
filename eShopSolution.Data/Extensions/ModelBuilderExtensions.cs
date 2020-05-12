@@ -85,38 +85,37 @@ namespace eShopSolution.Data.Extensions
                 new ProductInCategory() { ProductId = 1, CategoryId = 1 }
                 );
 
-            // any guid
-            //var roleId = new Guid("8D04DCE2-969A-435D-BBA4-DF3F325983DC");
-            //var adminId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE");
-            //modelBuilder.Entity<AppRole>().HasData(new AppRole
-            //{
-            //    Id = roleId,
-            //    Name = "admin",
-            //    NormalizedName = "admin",
-            //    Description = "Administrator role"
-            //});
+            var roleId = new Guid("93A51F7F-1C46-43A8-8DAF-1E360EA6C870");
+            var adminId = new Guid("11300385-5ED3-40CC-AFA5-83C44CCC262A");
+            modelBuilder.Entity<AppRole>().HasData(new AppRole
+            {
+                Id = roleId,
+                Name = "admin",
+                NormalizedName = "admin",
+                Description = "Administrator role"
+            });
 
-            //var hasher = new PasswordHasher<AppUser>();
-            //modelBuilder.Entity<AppUser>().HasData(new AppUser
-            //{
-            //    Id = adminId,
-            //    UserName = "admin",
-            //    NormalizedUserName = "admin",
-            //    Email = "duongnguyenadhp@gmail.com",
-            //    NormalizedEmail = "duongnguyenadhp@gmail.com",
-            //    EmailConfirmed = true,
-            //    PasswordHash = hasher.HashPassword(null, "Bonghoatrang1@!"),
-            //    SecurityStamp = string.Empty,
-            //    FirstName = "Duong",
-            //    LastName = "Nguyen",
-            //    Dob = new DateTime(1998, 04, 24)
-            //});
+            var hasher = new PasswordHasher<AppUser>();
+            modelBuilder.Entity<AppUser>().HasData(new AppUser
+            {
+                Id = adminId,
+                UserName = "admin",
+                NormalizedUserName = "admin",
+                Email = "duongnguyenadhp@gmail.com",
+                NormalizedEmail = "duongnguyenadhp@gmail.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "Bonghoatrang1@!"),
+                SecurityStamp = string.Empty,
+                FirstName = "Duong",
+                LastName = "Nguyen",
+                Dob = new DateTime(1998, 04, 24)
+            });
 
-            //modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
-            //{
-            //    RoleId = roleId,
-            //    UserId = adminId
-            //});
+            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
+            {
+                RoleId = roleId,
+                UserId = adminId
+            });
         }
     }
 }
