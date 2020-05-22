@@ -21,6 +21,7 @@ namespace eShopSolution.BackendApi.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromForm] LoginUserRequest request)
         {
+            if (!ModelState.IsValid) return BadRequest();
             var token = await userService.Login(request);
             if (token!=null) return Ok(token);
             return BadRequest();

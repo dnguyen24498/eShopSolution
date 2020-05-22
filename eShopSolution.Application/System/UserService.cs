@@ -46,14 +46,14 @@ namespace eShopSolution.Application.System
             };
             //Encode claim
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var keyEncoded = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             
             var token = new JwtSecurityToken(configuration["Tokens:Issuer"],
                 configuration["Tokens:Issuer"],
                 claims,
                 expires: DateTime.Now.AddHours(3),
-                signingCredentials: creds);
-            return new JwtSecurityTokenHandler().WriteToken(token) ;
+                signingCredentials: keyEncoded);
+            return "Bearer "+new JwtSecurityTokenHandler().WriteToken(token) ;
         }
 
         public async Task<bool> Register(RegisterUserRequest request)
