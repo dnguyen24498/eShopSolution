@@ -8,6 +8,9 @@ using eShopSolution.Application.Category.ProductServices;
 using eShopSolution.Application.System;
 using eShopSolution.Data.EF;
 using eShopSolution.Data.Entities;
+using eShopSolution.ViewModels.System.Users;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,7 +43,7 @@ namespace eShopSolution.BackendApi
                 .AddDefaultTokenProviders();
             services.AddDbContext<EShopSolutionDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("eShopSolutionDb")));
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(fv=>fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
             services.AddTransient<IProductService,ProductService>();
             services.AddTransient<IFileStorageService,FileStorageService>();
             services.AddTransient<ICategoryService,CategoryService>();
@@ -48,6 +51,7 @@ namespace eShopSolution.BackendApi
             services.AddTransient<UserManager<AppUser>,UserManager<AppUser>>();
             services.AddTransient<SignInManager<AppUser>,SignInManager<AppUser>>();
             services.AddTransient<RoleManager<AppRole>,RoleManager<AppRole>>();
+            services.AddTransient<IValidator<LoginUserRequest>,LoginRequestValidator>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
