@@ -1,4 +1,6 @@
-﻿namespace eShopSolution.ViewModels.Catalog.Categories
+﻿using eShopSolution.Data.Enums;
+
+namespace eShopSolution.ViewModels.Catalog.Categories
 {
     public class CategoryViewModel
     {
@@ -7,6 +9,8 @@
         public bool IsShowOnHome { set; get; }
         public int? ParentId { set; get; }
         public string Name { set; get; }
+        
+        public Status Status { set; get; }
         public string SeoDescription { set; get; }
         public string SeoTitle { set; get; }
         public string LanguageId { set; get; }

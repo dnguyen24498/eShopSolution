@@ -2,12 +2,14 @@
 using eShopSolution.Application.Category.ProductServices;
 using eShopSolution.ViewModels.Catalog.ProductImages;
 using eShopSolution.ViewModels.Catalog.Products;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eShopSolution.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService productService;
@@ -58,7 +60,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpGet("language/{languageId}")]
-        public async Task<IActionResult> GetProductPagingByCategories(string languageId,[FromForm] GetProductsPagingByCategoriesRequest request)
+        public async Task<IActionResult> GetProductPagingByCategories(string languageId,[FromQuery] GetProductsPagingByCategoriesRequest request)
         {
             var products = await productService.GetAllProductPagingByCategoriesAsync(languageId,request);
             if (products != null) return Ok(products);
