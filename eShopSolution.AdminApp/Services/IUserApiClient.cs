@@ -2,11 +2,12 @@
 using eShopSolution.ViewModels.Common;
 using eShopSolution.ViewModels.System.Users;
 
-namespace eShopSolution.Application.System
+namespace eShopSolution.AdminApp.Services
 {
-    public interface IUserService
+    public interface IUserApiClient
     {
         Task<ApiResult<string>> Login(LoginUserRequest request);
+
         Task<ApiResult<bool>> Register(RegisterUserRequest request);
     }
 }
