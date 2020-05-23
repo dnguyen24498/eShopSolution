@@ -19,20 +19,20 @@ namespace eShopSolution.BackendApi.Controllers
         }
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromForm] LoginUserRequest request)
+        public async Task<IActionResult> Login([FromBody] LoginUserRequest request)
         {
             if (!ModelState.IsValid) return BadRequest();
-            var token = await userService.Login(request);
-            if (token!=null) return Ok(token);
-            return BadRequest();
+            var resultObj = await userService.Login(request);
+            if (resultObj.IsSuccess) return Ok(resultObj);
+            return BadRequest(resultObj);
         }
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromForm] RegisterUserRequest request)
+        public async Task<IActionResult> Register([FromBody] RegisterUserRequest request)
         {
-            var isSuccess = await userService.Register(request);
-            if (isSuccess) return Ok();
-            return BadRequest();
+            var returnObj = await userService.Register(request);
+            if (returnObj.IsSuccess) return Ok(returnObj);
+            return BadRequest(returnObj);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using eShopSolution.Data.Entities;
+using eShopSolution.ViewModels.Common;
 using eShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -28,7 +29,7 @@ namespace eShopSolution.Application.System
             this.configuration = configuration;
             ;
         }
-        public async Task<string> Login(LoginUserRequest request)
+        public async Task<ApiResult<string>> Login(LoginUserRequest request)
         {
             var user = await userManager.FindByNameAsync(request.UserName);
             if (user == null) return null;
@@ -53,14 +54,14 @@ namespace eShopSolution.Application.System
                 claims,
                 expires: DateTime.Now.AddHours(3),
                 signingCredentials: keyEncoded);
-            return "Bearer "+new JwtSecurityTokenHandler().WriteToken(token) ;
+            return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
         }
 
-        public async Task<bool> Register(RegisterUserRequest request)
+        public async Task<ApiResult<bool>> Register(RegisterUserRequest request)
         {
             var user = await userManager.FindByNameAsync(request.UserName);
             var email = await userManager.FindByEmailAsync(request.Email);
-            if (user != null || email != null) return false;
+            if (user != null || email != null) return new ApiErrorResult<bool>("Không tìm thấy người dùng.");
             user=new AppUser()
             {
                 Dob = request.Dob,
@@ -73,10 +74,10 @@ namespace eShopSolution.Application.System
             var result = await userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
-                return true;
+                return new ApiSuccessResult<bool>();
             }
 
-            return false;
+            return new ApiErrorResult<bool>("Đăng ký không thành công");
         }
     }
 }
