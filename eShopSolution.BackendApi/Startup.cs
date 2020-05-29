@@ -47,6 +47,7 @@ namespace eShopSolution.BackendApi
             services.AddTransient<IProductService,ProductService>();
             services.AddTransient<IFileStorageService,FileStorageService>();
             services.AddTransient<ICategoryService,CategoryService>();
+            services.AddTransient<IRoleService,RoleService>();
             services.AddTransient<IUserService,UserService>();
             services.AddTransient<UserManager<AppUser>,UserManager<AppUser>>();
             services.AddTransient<SignInManager<AppUser>,SignInManager<AppUser>>();
