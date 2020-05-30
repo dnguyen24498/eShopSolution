@@ -28,37 +28,6 @@ namespace eShopSolution.AdminApp.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<ApiResult<AppRole>> CreateRole(CreateRoleRequest request)
-        {
-            var json = JsonConvert.SerializeObject(request);
-            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var client = _httpClientFactory.CreateClient();
-            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
-            var response = await client.PostAsync("/api/Roles", httpContent);
-            if (response.IsSuccessStatusCode)
-            {
-                return JsonConvert.DeserializeObject<ApiSuccessResult<AppRole>>(await response.Content.ReadAsStringAsync());
-            }
-
-            return JsonConvert.DeserializeObject<ApiErrorResult<AppRole>>(await response.Content.ReadAsStringAsync());
-        }
-
-        public async Task<ApiResult<List<AppRole>>> GetRoles()
-        {
-            var sessions= _httpContextAccessor.HttpContext.Session.GetString("Token");
-            var client=_httpClientFactory.CreateClient();
-            client.BaseAddress=new Uri(_configuration["BaseAddress"]);
-            client.DefaultRequestHeaders.Authorization=new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer",sessions);
-            var response=await client.GetAsync("/api/Roles");
-             if (response.IsSuccessStatusCode)
-            {
-                return JsonConvert.DeserializeObject<ApiSuccessResult<List<AppRole>>>(await response.Content.ReadAsStringAsync());
-            }
-
-            return JsonConvert.DeserializeObject<ApiErrorResult<List<AppRole>>>(await response.Content.ReadAsStringAsync());
-        }
-
         public async Task<ApiResult<string>> Login(LoginUserRequest request)
         {
             var json = JsonConvert.SerializeObject(request);

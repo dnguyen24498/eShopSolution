@@ -31,5 +31,12 @@ namespace eShopSolution.BackendApi.Controllers
             if(result.IsSuccess) return Ok(result.ResultObj);
             return BadRequest(result.Message);
         }
+
+        [HttpDelete("{roleId}")]
+        public async Task<IActionResult> DeleteRole(string roleId){
+            var result=await _roleService.DeleteRole(roleId);
+            if(result!=null && result.IsSuccess) return Ok(result.ResultObj);
+            return BadRequest(result.Message);
+        }
     }
 }

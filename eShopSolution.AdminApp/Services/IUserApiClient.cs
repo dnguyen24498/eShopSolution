@@ -13,8 +13,5 @@ namespace eShopSolution.AdminApp.Services
 
         Task<ApiResult<bool>> Register(RegisterUserRequest request);
 
-        Task<ApiResult<List<AppRole>>> GetRoles();
-        
-        Task<ApiResult<AppRole>> CreateRole(CreateRoleRequest request);
     }
 }
