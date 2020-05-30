@@ -1,0 +1,12 @@
+@model eShopSolution.ViewModels.System.Roles.CreateRoleRequest
+<form method="POST" class="m-1 p-1" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="@Model.Name">Tên:</label>
+        <input type="text" class="form-control" asp-for="@Model.Name">
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Description">Mô tả:</label>
+        <input type="text" class="form-control" asp-for="@Model.Description">
+    </div>
+    <button class="btn btn-success" type="submit">Tạo mới</button>
+</form>
