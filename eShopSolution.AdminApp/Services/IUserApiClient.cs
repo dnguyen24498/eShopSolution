@@ -13,5 +13,11 @@ namespace eShopSolution.AdminApp.Services
 
         Task<ApiResult<bool>> Register(RegisterUserRequest request);
 
+        Task<ApiResult<PagedResult<UserViewModel>>> GetUserPaging(PagingRequestBase request);
+
+        Task<ApiResult<int>> UpdateUserRoles(UserRolesViewModel request);
+
+        Task<ApiResult<UserRolesViewModel>> GetUserRolesByUserName(string userName);
+
     }
 }

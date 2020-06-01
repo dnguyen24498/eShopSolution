@@ -4,7 +4,8 @@ using System.Text;
 
 namespace EShopSolution.Ultilities.Constants
 {
-    class SystemConstants
+    public static class SystemConstants
     {
+        public static int PageSize=10;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using eShopSolution.Application.System;
+using eShopSolution.ViewModels.Common;
 using eShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,31 @@ namespace eShopSolution.BackendApi.Controllers
             var returnObj = await userService.Register(request);
             if (returnObj.IsSuccess) return Ok(returnObj);
             return BadRequest(returnObj);
+        }
+        
+        [HttpGet]
+        [Authorize(Roles ="admin")]
+        public async Task<IActionResult> GetUserPaging([FromQuery] PagingRequestBase request){
+            var returnObj=await userService.GetUserPaging(request);
+            if(returnObj.IsSuccess) return Ok(returnObj);
+            return BadRequest(returnObj.Message);
+        }
+
+        [HttpPost("roles")]
+        [Authorize(Roles="admin")]
+        public async Task<IActionResult> UpdateUserRoles([FromBody] UserRolesViewModel request){
+            var result=await userService.UpdateUserRoles(request);
+            if(result.IsSuccess) return Ok(result);
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("roles/{userName}")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> GetUserRolesByUserName(string userName)
+        {
+            var result = await userService.GetUserRoles(userName);
+            if (result != null && result.IsSuccess) return Ok(result);
+            return BadRequest(result.Message);
         }
     }
 }

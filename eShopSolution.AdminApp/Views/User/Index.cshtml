@@ -1,0 +1,58 @@
+@model IEnumerable<eShopSolution.ViewModels.System.Users.UserViewModel>
+<div class="ml-2 mr-2 pl-1">
+    <div class="row bg-primary">
+        <h3 class="text-center text-white p-1">Danh sách người dùng</h3>
+    </div>
+    <div class="row p-1">
+        <div class="col-sm-8"></div>
+        <div class="col-sm-4 d-flex justify-content-end">
+             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Tìm kiếm người dùng..." aria-label="Search" aria-describedby="basic-addon2" />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <th class="text-center" scope="col">Số thứ tự</th>
+            <th class="text-center" scope="col">Tên tài khoản</th>
+            <th class="text-center" scope="col">Họ</th>
+            <th class="text-center" scope="col">Tên</th>
+            <th class="text-center" scope="col">Ngày sinh</th>
+            <th class="text-center" scope="col">Email</th>
+            <th class="text-center" scope="col">Quyền hạn</th>
+            <th></th>
+        </thead>
+        <tbody>
+            @if(Model.Count()==0){
+                <tr>Không có người dùng</tr>
+            }
+            else{
+                @foreach (var r in Model.Select((value,i)=>new{i,value}))
+                {
+                    <tr>
+                        <th class="text-center" scope="row">@(r.i+1)</th>
+                        <td class="text-center">@r.value.UserName</td>
+                        <td class="text-center">@r.value.FirstName</td>
+                        <td class="text-center">@r.value.LastName</td>
+                        <td class="text-center">@r.value.Dob.ToString("dd/MM/yyyy")</td>
+                        <td class="text-center">@r.value.Email</td>
+                        <td class="text-center">
+                            @string.Join(", ",r.value.Roles)
+                        </td>
+                        <td class="text-center">
+                            <form method="POST" asp-action="Delete">
+                                <a class="btn btn-primary text-white" asp-action="UpdateUserRoles" asp-route-userName="@r.value.UserName">Sửa quyền</a>
+                                <button class="btn btn-danger" type="submit">Xóa người dùng</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

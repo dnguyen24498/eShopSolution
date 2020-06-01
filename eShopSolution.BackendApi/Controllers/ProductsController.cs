@@ -9,7 +9,6 @@ namespace eShopSolution.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService productService;
@@ -28,6 +27,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="admin,add_product")]
         public async Task<IActionResult> CreateProduct([FromForm] CreateProductRequest request)
         {
             var product = await productService.CreateProductAsync(request);
@@ -36,6 +36,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles ="admin,update_product")]
         public async Task<IActionResult> UpdateProduct([FromForm] UpdateProductRequest request)
         {
             var product = await productService.UpdateProductAsync(request);
@@ -44,6 +45,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpDelete("{productId}")]
+        [Authorize(Roles ="admin,delete_product")]
         public async Task<IActionResult> DeleteProduct(int productId)
         {
             var isDelete = await productService.DeleteProductAsync(productId);
@@ -52,6 +54,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPut("{productId}/newprice/{newPrice}")]
+        [Authorize(Roles ="admin,update_product_price")]
         public async Task<IActionResult> UpdatePrice(int productId, decimal newPrice)
         {
             var isSuccess = await productService.UpdateProductPriceAsync(productId, newPrice);

@@ -36,7 +36,7 @@ namespace eShopSolution.AdminApp
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
             {
                 option.LoginPath = "/Login/Index";
-                option.AccessDeniedPath = "/User/Forbidden/";
+                option.AccessDeniedPath = "/Errors/401";
             });
             services.AddSession(options =>
             {
@@ -68,7 +68,7 @@ namespace eShopSolution.AdminApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

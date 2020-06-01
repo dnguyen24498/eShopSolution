@@ -9,7 +9,6 @@ namespace eShopSolution.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -27,6 +26,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin,add_category")]
         public async Task<IActionResult> CreateCategory([FromForm] CreateCategoryRequest request)
         {
             if (!ModelState.IsValid) return BadRequest();
@@ -36,6 +36,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles ="admin,update_category")]
         public async Task<IActionResult> UpdateCategory([FromForm] UpdateCategoryRequest request)
         {
             if (!ModelState.IsValid) return BadRequest();
@@ -45,6 +46,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpDelete("{categoryId}")]
+        [Authorize(Roles ="admin,delete_category")]
         public async Task<IActionResult> DeleteCategory(int categoryId)
         {
             var isSuccess = await _categoryService.DeleteCategory(categoryId);
@@ -61,6 +63,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         [HttpPost("products")]
+        [Authorize(Roles ="admin,add_product_into_categories")]
         public async Task<IActionResult> AddProductIntoCategories([FromForm] CreateProductInCategoriesRequest request)
         {
             var productId = await _categoryService.AddProductToCategories(request);

@@ -8,7 +8,7 @@ namespace eShopSolution.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class RolesController:ControllerBase
     {
         private readonly IRoleService _roleService;
