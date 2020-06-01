@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eShopSolution.AdminApp.Controllers
 {
-    [Authorize]
     public class RoleController:Controller
     {
         private IRoleApiClient _roleApiClient;
@@ -31,7 +30,12 @@ namespace eShopSolution.AdminApp.Controllers
          [HttpPost]
          public async Task<IActionResult> Create(CreateRoleRequest request){
              if(ModelState.IsValid){
-                 var result=await _roleApiClient.CreateRole(request);
+                var newRole = new CreateRoleRequest()
+                {
+                    Name = request.Name,
+                    Description = request.Description ?? ""
+                };
+                 var result=await _roleApiClient.CreateRole(newRole);
                  if(result!=null && result.IsSuccess==true) return RedirectToAction(nameof(Index));
                  else return View(nameof(Create));
              }

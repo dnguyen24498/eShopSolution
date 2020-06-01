@@ -1,0 +1,49 @@
+﻿@model eShopSolution.ViewModels.System.Users.UserRolesViewModel
+    <div class="ml-2 mr-2 pl-1">
+        <div class="row bg-primary">
+            <h3 class="text-center text-white p-1">Danh sách quyền User</h3>
+        </div>
+        <div class="row p-1">
+            <div class="col-sm-8"></div>
+            <div class="col-sm-4 d-flex justify-content-end">
+                <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2" />
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="container">
+            <form asp-action="UpdateUserRoles" method="post">
+                <input type="hidden" name="UserName" value="@Model.UserName" />
+                <div class="card text-white bg-primary mb-3 row m-1">
+                    <h5 class="card-header">Các quyền trực thuộc:</h5>
+                    <div class="card-body">
+                        @foreach (var item in Model.IsRolesMember)
+                        {
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" name="IsRolesMember" value="@item" type="checkbox">
+                                <label class="form-check-label" for="inlineCheckbox1">@item</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="card text-white bg-danger mb-3 row m-1">
+                    <h5 class="card-header">Các quyền không trực thuộc:</h5>
+                    <div class="card-body">
+                        @foreach (var item in Model.NoneRolesMember)
+                        {
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" name="NoneRolesMember" value="@item" type="checkbox">
+                                <label class="form-check-label" for="inlineCheckbox1">@item</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <button class="btn btn-primary m-1 p-1" type="submit">Lưu</button>
+            </form>
+        </div>
+    </div>

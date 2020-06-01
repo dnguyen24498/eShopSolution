@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using eShopSolution.Data.Entities;
 using eShopSolution.ViewModels.Common;
 using eShopSolution.ViewModels.System.Roles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 namespace eShopSolution.AdminApp.Services
 {
+    [Authorize]
     public class RoleApiClient : IRoleApiClient
     {
         private readonly IHttpClientFactory _httpClientFactory;
